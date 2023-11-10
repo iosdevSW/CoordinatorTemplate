@@ -6,29 +6,41 @@
 //
 
 import UIKit
+import Combine
 
 final class MyPageCoordinator: Coordinator {
+    private var cancellable = Set<AnyCancellable>()
+    
+    enum CoordinatorEvent {
+        case main, setting
+    }
+    
     var childCoordinators: [Coordinator] = []
     
     var navigationController: UINavigationController
     
     var delegate: CoordinatorDelegate?
     
+    var event = PassthroughSubject<CoordinatorEvent, Never>()
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        bindEvent()
     }
     
     func start() {
-        pushMyPageMain()
+        event.send(.main)
     }
     
     func bindEvent() {
-        
-    }
-    
-    func pushMyPageMain() {
-        let mypageVM = MyPageViewModel(coordinator: self)
-        let mypageVC = MyPageViewController(viewModel: mypageVM)
-        navigationController.pushViewController(mypageVC, animated: true)
+        event.sink { [weak self] event in
+            switch event {
+            case .main:
+                let mypageVM = MyPageViewModel(coordinator: self)
+                let mypageVC = MyPageViewController(viewModel: mypageVM)
+                self?.navigationController.viewControllers = [mypageVC]
+            case .setting: break
+            }
+        }.store(in: &cancellable)
     }
 }

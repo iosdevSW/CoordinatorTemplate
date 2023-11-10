@@ -31,4 +31,8 @@ final class HomeCoordiantor: Coordinator {
         let homeVC = HomeViewController(viewModel: homeVM)
         navigationController.pushViewController(homeVC, animated: true)
     }
+    
+    func pushHomeDetail() {
+        
+    }
 }

@@ -1,28 +1,26 @@
 //
-//  MyPageViewController.swift
+//  SignUpViewController.swift
 //  CoordinatorPractice
 //
-//  Created by iOS신상우 on 2023/10/28.
+//  Created by iOS신상우 on 2023/10/31.
 //
 
 import UIKit
-import Combine
-import SnapKit
 
-final class MyPageViewController: BaseViewController {
-    private let viewModel: MyPageViewModel
+final class SignUpViewController: BaseViewController {
+    private let viewModel: SignUpViewModel
     
-    private let logoutButton: UIButton = {
+    private let completeButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("로그아웃", for: .normal)
+        button.setTitle("회원가입 완료", for: .normal)
         
         return button
     }()
     
-    init(viewModel: MyPageViewModel) {
+    init(viewModel: SignUpViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        title = "마이페이지"
+        title = "회원가입"
     }
     
     required init?(coder: NSCoder) {
@@ -30,18 +28,20 @@ final class MyPageViewController: BaseViewController {
     }
     
     override func setupBinding() {
-        logoutButton.tapPublisher
+        completeButton.tapPublisher
             .sink { [weak self] in
-                self?.viewModel.coordinator?.finish()
+                self?.viewModel.coordinator?.popupViewController(animated: true)
                 }.store(in: &cancellable)
     }
     
     override func addSubViews() {
-        view.addSubview(logoutButton)
+        [completeButton].forEach {
+            view.addSubview($0)
+        }
     }
     
     override func setLayout() {
-        logoutButton.snp.makeConstraints {
+        completeButton.snp.makeConstraints {
             $0.center.equalToSuperview()
         }
     }

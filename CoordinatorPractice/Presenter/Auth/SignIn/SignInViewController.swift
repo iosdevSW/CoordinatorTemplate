@@ -8,8 +8,7 @@
 import UIKit
 import Combine
 
-final class SignInViewController: UIViewController {
-    private var cancellabel = Set<AnyCancellable>()
+final class SignInViewController: BaseViewController {
     private let viewModel: SignInViewModel
     
     private let signInButton: UIButton = {
@@ -19,34 +18,50 @@ final class SignInViewController: UIViewController {
         return button
     }()
     
+    private let signUpButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("회원가입", for: .normal)
+        
+        return button
+    }()
+    
     init(viewModel: SignInViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         view.backgroundColor = .white
         title = "로그인"
-        addSubViews()
-        setLayout()
-        setUpBinding()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setUpBinding() {
+    override func setupBinding() {
         signInButton.tapPublisher
             .sink { [weak self] in
                 self?.viewModel.coordinator?.finish()
-                }.store(in: &cancellabel)
+                }.store(in: &cancellable)
+        
+        signUpButton.tapPublisher
+            .sink { [weak self] in
+                self?.viewModel.coordinator?.event.send(.signUp)
+            }.store(in: &cancellable)
     }
     
-    private func addSubViews() {
-        view.addSubview(signInButton)
+    override func addSubViews() {
+        [signInButton, signUpButton].forEach {
+            view.addSubview($0)
+        }
     }
     
-    private func setLayout() {
+    override func setLayout() {
         signInButton.snp.makeConstraints {
             $0.center.equalToSuperview()
+        }
+        
+        signUpButton.snp.makeConstraints {
+            $0.top.equalTo(signInButton.snp.bottom).offset(20)
+            $0.centerX.equalToSuperview()
         }
     }
 }

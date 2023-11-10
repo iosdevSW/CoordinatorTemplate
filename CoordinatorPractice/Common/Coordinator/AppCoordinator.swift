@@ -33,7 +33,8 @@ final class AppCoordinator: Coordinator {
         let splashVC = SplashViewController(
             viewModel: splashVM
         )
-        navigationController.setViewControllers([splashVC], animated: true)
+
+        navigationController.setViewControllers([splashVC], animated: false)
     }
     
     func bindEvent() {
@@ -50,7 +51,6 @@ final class AppCoordinator: Coordinator {
                 tabBarCoordinator.delegate = self
                 tabBarCoordinator.start()
                 childCoordinators.append(tabBarCoordinator)
-                break
             }
         }.store(in: &cancellable)
     }
@@ -58,7 +58,8 @@ final class AppCoordinator: Coordinator {
 
 extension AppCoordinator: CoordinatorDelegate {
     func didFinish(childCoordinator: Coordinator) {
-        navigationController.popViewController(animated: true)
+        self.childCoordinators = []
+        navigationController.presentedViewController?.dismiss(animated: false)
         
         if childCoordinator is AuthCoordinator {
             event.send(.tabBar)

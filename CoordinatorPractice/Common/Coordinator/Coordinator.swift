@@ -18,7 +18,6 @@ protocol Coordinator: AnyObject {
     var navigationController: UINavigationController { get set }
     var delegate: CoordinatorDelegate? { get set }
     
-    // MARK: - start Coordinator
     func start()
     func bindEvent()
     func finish()
@@ -28,5 +27,13 @@ extension Coordinator {
     func finish() {
         childCoordinators.removeAll()
         delegate?.didFinish(childCoordinator: self)
+    }
+    
+    func dismiss(animated: Bool = false) {
+        navigationController.presentedViewController?.dismiss(animated: animated)
+    }
+    
+    func popupViewController(animated: Bool = false) {
+        navigationController.popViewController(animated: animated)
     }
 }

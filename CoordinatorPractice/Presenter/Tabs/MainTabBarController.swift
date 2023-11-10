@@ -14,6 +14,7 @@ final class MainTabBarController: UITabBarController {
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
         view.backgroundColor = .brown
+        modalPresentationStyle = .fullScreen
     }
     
     required init?(coder: NSCoder) {

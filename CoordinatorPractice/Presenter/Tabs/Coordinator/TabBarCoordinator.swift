@@ -27,7 +27,7 @@ final class TabBarCoordinator: Coordinator {
     }
     
     func bindEvent() {
-        
+
     }
 }
 
@@ -63,8 +63,7 @@ private extension TabBarCoordinator {
 }
 
 extension TabBarCoordinator: CoordinatorDelegate {
-    func didFinish(childCoordinator: Coordinator) {
-        navigationController.popViewController(animated: true)
+    func didFinish(childCoordinator: Coordinator) { 
         finish()
         childCoordinators = []
     }

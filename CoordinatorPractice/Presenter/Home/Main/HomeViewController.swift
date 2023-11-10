@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import CryptoKit
+import CommonCrypto
 
-final class HomeViewController: UIViewController {
+final class HomeViewController: BaseViewController {
     private let viewModel: HomeViewModel
     
     init(viewModel: HomeViewModel) {
@@ -18,5 +20,9 @@ final class HomeViewController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
 }

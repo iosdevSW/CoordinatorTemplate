@@ -17,6 +17,8 @@ final class SplashViewModel {
     }
     
     func checkSignIn() {
+        
+        isLogin.toggle()
         // localDB에 존재하는 AccessToken 유효성 검사 등 로그인 체크
         if isLogin {
             coordinator?.event.send(.tabBar)
