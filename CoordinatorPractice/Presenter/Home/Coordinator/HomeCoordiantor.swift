@@ -8,31 +8,32 @@
 import UIKit
 
 final class HomeCoordiantor: Coordinator {
-    var childCoordinators: [Coordinator] = []
+ 
+    enum Action {
+        case main, detail
+    }
     
+    var childCoordinators: [any Coordinator] = []
     var navigationController: UINavigationController
-    
-    var delegate: CoordinatorDelegate?
+    weak var delegate: CoordinatorDelegate?
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     func start() {
-        pushHomeMain()
+        setAction(.main)
     }
     
-    func bindEvent() {
-        
-    }
-    
-    func pushHomeMain() {
-        let homeVM = HomeViewModel(coordinator: self)
-        let homeVC = HomeViewController(viewModel: homeVM)
-        navigationController.pushViewController(homeVC, animated: true)
-    }
-    
-    func pushHomeDetail() {
-        
+    func setAction(_ action: Action) {
+        switch action {
+        case .main:
+            let homeVM = HomeViewModel(coordinator: self)
+            let homeVC = HomeViewController(viewModel: homeVM)
+            navigationController.pushViewController(homeVC, animated: true)
+        case .detail:
+            // TODO: Move detail
+            break
+        }
     }
 }

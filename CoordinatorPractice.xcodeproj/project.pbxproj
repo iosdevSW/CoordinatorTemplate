@@ -33,6 +33,7 @@
 		B56452E72AF0A45D000A45FA /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56452E62AF0A45D000A45FA /* BaseViewController.swift */; };
 		B56452EA2AF0B01F000A45FA /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56452E92AF0B01F000A45FA /* SignUpViewModel.swift */; };
 		B56452EC2AF0B03B000A45FA /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56452EB2AF0B03B000A45FA /* SignUpViewController.swift */; };
+		B5A870732B0B2F7C0052D5A1 /* UIBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = B5A870722B0B2F7C0052D5A1 /* UIBuilder */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,7 @@
 		B56452E62AF0A45D000A45FA /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		B56452E92AF0B01F000A45FA /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		B56452EB2AF0B03B000A45FA /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		B5A870712B0B2C3C0052D5A1 /* UIBuilder */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = UIBuilder; path = ../../../Project_Work/UIBuilder; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5A870732B0B2F7C0052D5A1 /* UIBuilder in Frameworks */,
 				B53B6A1C2AEE2E3200D3E092 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -97,6 +100,7 @@
 		B53B69D32AEB892C00D3E092 /* CoordinatorPractice */ = {
 			isa = PBXGroup;
 			children = (
+				B5A870712B0B2C3C0052D5A1 /* UIBuilder */,
 				B53B69F12AEB972A00D3E092 /* App */,
 				B53B69EB2AEB8A3000D3E092 /* Common */,
 				B53B69E82AEB893C00D3E092 /* Presenter */,
@@ -304,6 +308,7 @@
 			name = CoordinatorPractice;
 			packageProductDependencies = (
 				B53B6A1B2AEE2E3200D3E092 /* SnapKit */,
+				B5A870722B0B2F7C0052D5A1 /* UIBuilder */,
 			);
 			productName = CoordinatorPractice;
 			productReference = B53B69D12AEB892C00D3E092 /* CoordinatorPractice.app */;
@@ -609,6 +614,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B53B6A192AEE2E1400D3E092 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		B5A870722B0B2F7C0052D5A1 /* UIBuilder */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UIBuilder;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

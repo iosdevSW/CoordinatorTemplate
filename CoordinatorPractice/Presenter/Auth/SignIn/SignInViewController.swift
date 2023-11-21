@@ -44,7 +44,7 @@ final class SignInViewController: BaseViewController {
         
         signUpButton.tapPublisher
             .sink { [weak self] in
-                self?.viewModel.coordinator?.event.send(.signUp)
+                self?.viewModel.coordinator?.setAction(.signUp)
             }.store(in: &cancellable)
     }
     

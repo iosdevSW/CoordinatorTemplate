@@ -6,26 +6,20 @@
 //
 
 import UIKit
-import Combine
 
 final class AppCoordinator: Coordinator {
-    private var cancellable = Set<AnyCancellable>()
     
-    enum CoordinatorEvent {
+    enum Action {
       case auth
       case tabBar
     }
     
-    var childCoordinators: [Coordinator] = []
+    var childCoordinators: [any Coordinator] = []
     var navigationController: UINavigationController
     var delegate: CoordinatorDelegate?
     
-    var event = PassthroughSubject<CoordinatorEvent, Never>()
-    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        
-        bindEvent()
     }
     
     func start() {
@@ -37,34 +31,31 @@ final class AppCoordinator: Coordinator {
         navigationController.setViewControllers([splashVC], animated: false)
     }
     
-    func bindEvent() {
-        event.sink { [weak self] event in
-            guard let self else { return }
-            switch event {
-            case .auth:
-                let authCoordinator = AuthCoordinator(navigationController: navigationController)
-                authCoordinator.delegate = self
-                authCoordinator.start()
-                childCoordinators.append(authCoordinator)
-            case .tabBar:
-                let tabBarCoordinator = TabBarCoordinator(navigationController: navigationController)
-                tabBarCoordinator.delegate = self
-                tabBarCoordinator.start()
-                childCoordinators.append(tabBarCoordinator)
-            }
-        }.store(in: &cancellable)
+    func setAction(_ action: Action) {
+        switch action {
+        case .auth:
+            let authCoordinator = AuthCoordinator(navigationController: navigationController)
+            authCoordinator.delegate = self
+            authCoordinator.start()
+            childCoordinators.append(authCoordinator)
+        case .tabBar:
+            let tabBarCoordinator = TabBarCoordinator(navigationController: navigationController)
+            tabBarCoordinator.delegate = self
+            tabBarCoordinator.start()
+            childCoordinators.append(tabBarCoordinator)
+        }
     }
 }
 
 extension AppCoordinator: CoordinatorDelegate {
-    func didFinish(childCoordinator: Coordinator) {
+    func didFinish(childCoordinator: any Coordinator) {
         self.childCoordinators = []
         navigationController.presentedViewController?.dismiss(animated: false)
         
         if childCoordinator is AuthCoordinator {
-            event.send(.tabBar)
+            setAction(.tabBar)
         } else {
-            event.send(.auth)
+            setAction(.auth)
         }
     }
 }

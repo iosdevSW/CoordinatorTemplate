@@ -8,11 +8,15 @@
 import UIKit
 
 final class TabBarCoordinator: Coordinator {
-    var childCoordinators: [Coordinator] = []
+    
+    enum Action {
+        case temp
+    }
     
     lazy var tabBarController = MainTabBarController(coordinator: self)
-    var navigationController: UINavigationController
     
+    var navigationController: UINavigationController
+    var childCoordinators: [any Coordinator] = []
     weak var delegate: CoordinatorDelegate?
     
     init(navigationController: UINavigationController) {
@@ -26,8 +30,8 @@ final class TabBarCoordinator: Coordinator {
         configureTabBarController(with: items)
     }
     
-    func bindEvent() {
-
+    func setAction(_ action: Action) {
+        
     }
 }
 
@@ -63,7 +67,7 @@ private extension TabBarCoordinator {
 }
 
 extension TabBarCoordinator: CoordinatorDelegate {
-    func didFinish(childCoordinator: Coordinator) { 
+    func didFinish(childCoordinator: any Coordinator) { 
         finish()
         childCoordinators = []
     }
