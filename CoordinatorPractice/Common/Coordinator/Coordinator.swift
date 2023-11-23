@@ -13,7 +13,7 @@ protocol CoordinatorDelegate: AnyObject {
 
 protocol Coordinator: AnyObject {
     
-    associatedtype Action: Equatable
+    associatedtype Action
     
     var childCoordinators: [any Coordinator] { get set }
     var navigationController: UINavigationController { get set }
